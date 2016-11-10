@@ -1,4 +1,4 @@
-* ssh nksg@login.xsede.org
+* ssh ****@login.xsede.org
 
 
 Please login to this system using your XSEDE username and password:
