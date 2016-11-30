@@ -37,13 +37,9 @@ squeue -u xs-nksg
 ```
 
 * pwd
-* cd DeepSEA
 * wget http://deepsea.princeton.edu/media/code/deepsea_train_bundle.v0.9.tar.gz
 * tar -xvzf deepsea_train_bundle.v0.9.tar.gz
-* cd deepsea_train/
 * module load torch/20160414-cbb5161 HDF5/1.8.15-patch1 MATIO/1.5.8
-* less run.sh
-* sh run.sh
 * th
 * du -sh *mat
 
@@ -84,5 +80,5 @@ python [program].py [parameters]
 
 sbatch PLEK_job.txt
 squeue | grep nksg
+scancel [jobid]
 ```
-
