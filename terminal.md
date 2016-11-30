@@ -63,4 +63,26 @@ Install packages
 pip2.7 install --upgrade --user numpy
 ```
 
+submit jobs
+```
+#!/bin/bash
+#SBATCH --job-name=[this job file name]
+#SBATCH --output=./output/[output file name.txt]
+#SBATCH --workdir=/cstor/xsede/users/[current dir]
+#SBATCH --time=2-00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=16000
+#SBATCH --gres gpu:1
+
+ml foss/2015.05
+ml HDF5/1.8.15-patch1
+ml scipy/0.16.1-Python-2.7.9
+ml Theano/0.8.2-Python-2.7.9-noMPI
+python [program].py [parameters]
+
+
+sbatch PLEK_job.txt
+squeue | grep nksg
+```
 
