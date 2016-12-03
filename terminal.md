@@ -82,3 +82,9 @@ sbatch PLEK_job.txt
 squeue | grep nksg
 scancel [jobid]
 ```
+
+How to append contents of multiple files into one file: You need the cat (short for concatenate) command, with shell redirection (>) into your output file
+
+```
+cat 1.txt 2.txt 3.txt > 0.txt
+```
