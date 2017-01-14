@@ -77,58 +77,65 @@ def model(X_train, Y_train, X_test, Y_test, X_valid, y_valid):
     The last one is optional, though recommended, namely:
         - model: specify the model just created so that we can later use it again.
     '''
+    file_name = sys.argv[1];
+    model_file_name = "./model/"+file_name+".02.bestmodel.hdf5";
 
-    NUM_FILTER1 = {{choice([64, 80, 100, 128, 200])}}
+    NUM_FILTER1 = 80
     INPUT_LENGTH = 10000
-    FILTER_LENGTH1 = {{choice([64, 100, 128, 200])}}
-    INIT_VALUE = {{choice(['uniform', 'lecun_uniform', 'normal', 'zero', 'glorot_normal', 'glorot_uniform', 'he_normal', 'he_uniform'])}}
+    FILTER_LENGTH1 = 100
+    INIT_VALUE = 'glorot_normal'
+    POOL1 = 16
+    POOL2 = 4
+    POOL3 = 2
 
     print 'building model'
     model = Sequential()
     model.add(Convolution1D(input_dim=4, input_length=INPUT_LENGTH, nb_filter=NUM_FILTER1, filter_length=FILTER_LENGTH1, border_mode="valid", subsample_length=1, init=INIT_VALUE))
-
-    model.add(MaxPooling1D(pool_length=45, stride=45))
-    model.add(Dropout({{uniform(0, 1)}}))
+    model.add(MaxPooling1D(pool_length=POOL1))
 
     input_length, input_dim = model.output_shape[1:]
-    nb_filter = {{choice([64, 100, 128, 200])}}
-    filter_length = {{choice([4, 8, 10, 16])}}
+    nb_filter = 128
+    filter_length =  10
     subsample = 1
+    OUTPUT_DIM1 = {{choice([70, 75, 80, 85, 90])}}
 
     model.add(building_residual_block(r_input_length = input_length, r_input_dim = input_dim,
                                       r_nb_filter = nb_filter, r_filter_length = filter_length,
                                       is_subsample = True, n_skip =2, r_subsample = subsample))
 
-    model.add(AveragePooling1D(pool_length=4, stride=4))
-    model.add(Dropout({{uniform(0, 1)}}))
+    model.add(AveragePooling1D(pool_length=POOL2))
+    model.add(Dropout(0.6))
 
     input_length, input_dim = model.output_shape[1:]
     model.add(building_residual_block(r_input_length = input_length, r_input_dim = input_dim,
                                       r_nb_filter = nb_filter, r_filter_length = filter_length,
                                       is_subsample = True, n_skip =2, r_subsample = subsample))
 
-    model.add(AveragePooling1D(pool_length=2, stride=2))
-    model.add(Dropout({{uniform(0, 1)}}))
+    model.add(AveragePooling1D(pool_length=POOL3))
 
     model.add(Flatten())
-    model.add(Dense(output_dim=150, init='glorot_uniform'))
+    model.add(Dense(output_dim=OUTPUT_DIM1, init=INIT_VALUE))
 
-    model.add(Activation({{choice(['relu', 'sigmoid', 'tanh', 'softmax'])}}))
-    model.add(Dropout({{uniform(0, 1)}}))
+    model.add(Activation('tanh'))
+    model.add(Dropout(0.5))
 
     model.add(Dense(output_dim=1))
-    model.add(Activation({{choice(['relu', 'sigmoid', 'tanh', 'softmax'])}}))
+    model.add(Activation('sigmoid'))
 
     print 'compiling model'
-    sgd = SGD(lr={{choice([0.001, 0.003, 0.01, 0.03])}}, momentum=0.9, decay=1e-5, nesterov=True)
+    sgd = SGD(lr=0.01, momentum=0.9, decay=1e-5, nesterov=True)
     model.compile(loss='binary_crossentropy', optimizer=sgd, metrics=['accuracy'])
+  
+    checkpoint = ModelCheckpoint(filepath=model_file_name, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
+    callbacks_list = [checkpoint]
 
     print model.summary()
     model.fit(X_train, y_train,
-              batch_size=120,
-              nb_epoch=80,
+              batch_size= 100,
+              nb_epoch=10,
               shuffle=True,
-              validation_data=(X_valid, y_valid))
+              validation_data=(X_valid, y_valid),
+              callbacks=callbacks_list)
 
     model.layers[1].get_weights()
     score, acc1 = model.evaluate(X_test, y_test, verbose=0)
@@ -152,7 +159,7 @@ if __name__ == '__main__':
     best_run, best_model = optim.minimize(model=model,
                                           data=data,
                                           algo=tpe.suggest,
-                                          max_evals=5,
+                                          max_evals=10,
                                           trials=Trials())
     X_train, y_train, X_test, y_test, X_valid, y_valid = data()
     print("Evalutation of best performing model:")
@@ -168,6 +175,3 @@ if __name__ == '__main__':
     fw.write('\t'.join(['acc1', 'auc', 'mcc', 'acc2']) +'\n')
     fw.write('\t'.join([str(acc1), str(auc), str(mcc), str(acc2)]) +'\n')
     fw.close();
-
-    
-    
