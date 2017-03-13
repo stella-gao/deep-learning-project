@@ -22,3 +22,4 @@ def classify0(inX, dataSet, labels, k):
   
   
  
+>>> kNN.classify0([0,0], group, labels, 3)
