@@ -88,6 +88,19 @@ def datingClassTest():
         if (classifierResult != datingLabels[i]): errorCount += 1.0
     print "the total error rate is: %f" % (errorCount/float(numTestVecs))
     print errorCount
+            
+def classifyPerson():
+    resultList = ['not at all', 'in small doses', 'in large doses']
+    percentTats = float(raw_input("percentage of time spent playing video games?"))
+    ffMiles = float(raw_input("frequent flier miles earned per year?"))
+    iceCream = float(raw_input("liters of ice cream consumed per year?"))
+    datingDataMat, datingLabels = file2matrix('datingTestSet2.txt')
+    normDat, ranges, minVals = autoNorm(datingDataMat)
+    inArr = array([ffMiles, percentTats, iceCream])
+    classifierResult = ((inArr-minVals)/ranges, normMat, datingLabels, 3)
+    print "You will probably like this person: ", resultList[classifierResult - 1]
+
+
     
 def img2vector(filename):
     returnVect = zeros((1,1024))
@@ -128,3 +141,10 @@ def handwritingClassTest():
 >>> kNN.classify0([0,0], group, labels, 3)
 >>> reload(kNN)
 >>> datingDataMat, datingLabels = kNN.file2matrix('datingTestSet.txt')
+
+>>> reload(kNN)
+>>> normMat, ranges, minVals = kNN.autoNorm(datingDataMat)
+>>> normMat
+>>> minVals
+
+>>> kNN.datingClassTest()
