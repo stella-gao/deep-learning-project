@@ -1,6 +1,9 @@
 http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
 
 http://www.pyimagesearch.com/2016/07/18/installing-keras-for-deep-learning/
+
+https://www.tensorflow.org/versions/r0.10/get_started/os_setup
+
 ```
 sudo apt update
 sudo apt upgrade
@@ -47,5 +50,13 @@ gcc --version
 uname -r
 sudo apt-get install linux-headers-$(uname -r)
 
+# Ubuntu/Linux 64-bit
+sudo apt-get install python-pip python-dev
+
+# Ubuntu/Linux 64-bit, GPU enabled, Python 2.7
+# Requires CUDA toolkit 7.5 and CuDNN v5. For other versions, see "Install from sources" below.
+$ export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.10.0-cp27-none-linux_x86_64.whl
+
+sudo pip install --upgrade $TF_BINARY_URL
 
 ```
