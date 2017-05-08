@@ -4,6 +4,13 @@ http://www.pyimagesearch.com/2016/07/18/installing-keras-for-deep-learning/
 
 https://www.tensorflow.org/versions/r0.10/get_started/os_setup
 
+https://developer.nvidia.com/cuda-downloads
+
+
+
+
+http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#abstract
+
 ```
 sudo apt update
 sudo apt upgrade
@@ -34,15 +41,18 @@ sudo nvidia-smi
 # Install Theano
 sudo apt-get install python-numpy python-scipy python-dev python-pip python-nose g++ libopenblas-dev git
 sudo pip install Theano
+sudo pip install numpy scipy
+sudo pip install scikit-learn
+sudo pip install pillow
+sudo pip install h5py
+python -c "import keras; print keras.__version__"
 
 # Install Nvidia drivers, CUDA and CUDA toolkit, following some instructions from http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
 wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda-repo-ubuntu1404-7-5-local_7.5-18_amd64.deb # Got the link at https://developer.nvidia.com/cuda-downloads
 sudo dpkg -i cuda-repo-ubuntu1404-7-5-local_7.5-18_amd64.deb
 sudo apt-get update
 sudo apt-get install cuda
-
-export PATH=/usr/local/cuda-5.5/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda-5.5/lib64:$LD_LIBRARY_PATH
+cat /usr/local/cuda/version.txt
 
 lspci | grep -i nvidia
 uname -m && cat /etc/*release
@@ -58,5 +68,25 @@ sudo apt-get install python-pip python-dev
 $ export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.10.0-cp27-none-linux_x86_64.whl
 
 sudo pip install --upgrade $TF_BINARY_URL
+
+
+vi ~/.keras/keras.json
+'''
+{
+    "image_dim_ordering": "tf", 
+    "epsilon": 1e-07, 
+    "floatx": "float32", 
+    "backend": "tensorflow"
+}
+{
+    "image_dim_ordering": "th",
+    "epsilon": 1e-07,
+    "floatx": "float32",
+    "backend": "theano"
+}
+'''
+python -c "from keras import backend; print backend._BACKEND"
+
+
 
 ```
