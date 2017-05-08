@@ -1,4 +1,6 @@
 http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
+
+http://www.pyimagesearch.com/2016/07/18/installing-keras-for-deep-learning/
 ```
 sudo apt update
 sudo apt upgrade
