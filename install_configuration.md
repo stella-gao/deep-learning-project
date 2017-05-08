@@ -87,6 +87,10 @@ vi ~/.keras/keras.json
 '''
 python -c "from keras import backend; print backend._BACKEND"
 
-
+# update python from 2.7.6 to 2.7.12
+sudo add-apt-repository ppa:fkrull/deadsnakes-python2.7
+sudo apt-get update
+sudo apt-get install python2.7
+python --version
 
 ```
