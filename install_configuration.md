@@ -6,6 +6,8 @@ https://www.tensorflow.org/versions/r0.10/get_started/os_setup
 
 https://developer.nvidia.com/cuda-downloads
 
+https://developer.nvidia.com/rdp/cudnn-download
+
 
 
 
@@ -92,5 +94,9 @@ sudo add-apt-repository ppa:fkrull/deadsnakes-python2.7
 sudo apt-get update
 sudo apt-get install python2.7
 python --version
+
+wget http://developer2.download.nvidia.com/compute/machine-learning/cudnn/secure/v6/prod/8.0_20170427/cudnn-8.0-linux-x64-v6.0.tgz?JzRV9lJ6NXf7C3xvAjnDlMuFnqy4aM0N2AyiLa1ENSXPlXFyaQNUlLPjovGNvFakc34E6qd2m-1FkK25ODMGCwSzwD35JovZHyTCiHyGuUw64vpP6j2sg-0GrHCOr2MoFqGiAlecBA6Xo8ulUIRoXE4RGecU785FzIgvj_J23O2EY9yP8IMZ_iQUigiGojWYago-NW59
+
+
 
 ```
