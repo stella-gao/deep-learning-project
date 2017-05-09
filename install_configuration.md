@@ -37,7 +37,6 @@ lsmod | grep nvidia
 # If there is no output, then your installation has probably failed. It is also possible that the driver is not available in your system's driver database. You can run the following command to check if your system is running on the open source driver nouveau. If the output is negative for nouveau, then all is well with your installation.
 lsmod | grep nouveau 
 
-sudo apt-get install nvidia-cuda-toolkit
 sudo nvidia-smi
 
 # Install Theano
@@ -95,7 +94,13 @@ sudo apt-get update
 sudo apt-get install python2.7
 python --version
 
-wget http://developer2.download.nvidia.com/compute/machine-learning/cudnn/secure/v6/prod/8.0_20170427/cudnn-8.0-linux-x64-v6.0.tgz?JzRV9lJ6NXf7C3xvAjnDlMuFnqy4aM0N2AyiLa1ENSXPlXFyaQNUlLPjovGNvFakc34E6qd2m-1FkK25ODMGCwSzwD35JovZHyTCiHyGuUw64vpP6j2sg-0GrHCOr2MoFqGiAlecBA6Xo8ulUIRoXE4RGecU785FzIgvj_J23O2EY9yP8IMZ_iQUigiGojWYago-NW59
+
+wget https://web.njit.edu/~xg54/cudnn-8.0-linux-x64-v6.0.tgz
+cd ~
+tar -zxf cudnn-8.0-linux-x64-v6.0.tgz
+cd cuda
+sudo cp lib64/* /usr/local/cuda/lib64/
+sudo cp include/* /usr/local/cuda/include/
 
 
 
