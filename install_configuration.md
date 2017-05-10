@@ -8,6 +8,10 @@ https://developer.nvidia.com/cuda-downloads
 
 https://developer.nvidia.com/rdp/cudnn-download
 
+http://www.nvidia.com/object/gpu-accelerated-applications-tensorflow-installation.html
+
+
+
 
 
 
@@ -87,6 +91,8 @@ vi ~/.keras/keras.json
 }
 '''
 python -c "from keras import backend; print backend._BACKEND"
+＃specify the backend to use by Keras on the command line by specifying the KERAS_BACKEND environment variable, as follows:
+KERAS_BACKEND=theano python -c "from keras import backend; print(backend._BACKEND)"
 
 # update python from 2.7.6 to 2.7.12
 sudo add-apt-repository ppa:fkrull/deadsnakes-python2.7
@@ -105,3 +111,91 @@ sudo cp include/* /usr/local/cuda/include/
 
 
 ```
+
+```
+$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 14.04.5 LTS
+Release:        14.04
+Codename:       trusty
+$ ls -l /usr/local/cuda/lib64/libcud*
+-rw-r--r-- 1 root root   556000  1月 27 07:48 /usr/local/cuda/lib64/libcudadevrt.a
+lrwxrwxrwx 1 root root       16  1月 27 07:51 /usr/local/cuda/lib64/libcudart.so -> libcudart.so.8.0
+lrwxrwxrwx 1 root root       19  1月 27 07:51 /usr/local/cuda/lib64/libcudart.so.8.0 -> libcudart.so.8.0.61
+-rw-r--r-- 1 root root   415432  1月 27 07:48 /usr/local/cuda/lib64/libcudart.so.8.0.61
+-rw-r--r-- 1 root root   775162  1月 27 07:48 /usr/local/cuda/lib64/libcudart_static.a
+-rwxr-xr-x 1 root root 98851840  5月  9 05:08 /usr/local/cuda/lib64/libcudnn.so
+-rwxr-xr-x 1 root root 98851840  5月  9 05:08 /usr/local/cuda/lib64/libcudnn.so.6
+-rwxr-xr-x 1 root root 98851840  5月  9 05:08 /usr/local/cuda/lib64/libcudnn.so.6.0.21
+$ git rev-parse HEAD
+70de76e696c21da617fd2e6435cf7fedab220db8
+$ bazel version
+Build label: 0.4.5
+Build target: bazel-out/local-fastbuild/bin/src/main/java/com/google/devtools/build/lib/bazel/BazelServer_deploy.jar
+Build time: Thu Mar 16 12:19:38 2017 (1489666778)
+Build timestamp: 1489666778
+Build timestamp as int: 1489666778
+```
+
+```
+$ sudo apt-get install software-properties-common swig 
+$ sudo add-apt-repository ppa:webupd8team/java 
+$ sudo apt-get update 
+$ sudo apt-get install oracle-java8-installer 
+$ echo "deb http://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list 
+$ curl https://storage.googleapis.com/bazel-apt/doc/apt-key.pub.gpg | sudo apt-key add - 
+$ sudo apt-get update 
+$ sudo apt-get install bazel 
+
+$ git clone https://github.com/tensorflow/tensorflow
+$ cd tensorflow 
+$ git reset --hard 
+
+$ ./configure
+Please specify the location of python. [Default is /usr/bin/python]: 
+Found possible Python library paths:
+  /usr/local/lib/python2.7/dist-packages
+  /usr/lib/python2.7/dist-packages
+Please input the desired Python library path to use.  Default is [/usr/local/lib/python2.7/dist-packages]
+
+Using python library path: /usr/local/lib/python2.7/dist-packages
+Do you wish to build TensorFlow with MKL support? [y/N] 
+No MKL support will be enabled for TensorFlow
+Please specify optimization flags to use during compilation when bazel option "--config=opt" is specified [Default is -march=native]: 
+Do you wish to use jemalloc as the malloc implementation? [Y/n] 
+jemalloc enabled
+Do you wish to build TensorFlow with Google Cloud Platform support? [y/N] 
+No Google Cloud Platform support will be enabled for TensorFlow
+Do you wish to build TensorFlow with Hadoop File System support? [y/N] 
+No Hadoop File System support will be enabled for TensorFlow
+Do you wish to build TensorFlow with the XLA just-in-time compiler (experimental)? [y/N] 
+No XLA support will be enabled for TensorFlow
+Do you wish to build TensorFlow with VERBS support? [y/N] 
+No VERBS support will be enabled for TensorFlow
+Do you wish to build TensorFlow with OpenCL support? [y/N] 
+No OpenCL support will be enabled for TensorFlow
+Do you wish to build TensorFlow with CUDA support? [y/N] y
+CUDA support will be enabled for TensorFlow
+Do you want to use clang as CUDA compiler? [y/N] y
+Clang will be used as CUDA compiler
+Please specify which clang should be used as device and host compiler. [Default is /usr/bin/clang]: 
+Please specify the CUDA SDK version you want to use, e.g. 7.0. [Leave empty to use system default]: 
+Please specify the location where CUDA  toolkit is installed. Refer to README.md for more details. [Default is /usr/local/cuda]: 
+Please specify the cuDNN version you want to use. [Leave empty to use system default]: 
+Please specify the location where cuDNN  library is installed. Refer to README.md for more details. [Default is /usr/local/cuda]: 
+Please specify a list of comma-separated Cuda compute capabilities you want to build with.
+You can find the compute capability of your device at: https://developer.nvidia.com/cuda-gpus.
+Please note that each additional compute capability significantly increases your build time and binary size.
+[Default is: "3.5,5.2"]: 5.2,6.1                     
+INFO: Starting clean (this may take a while). Consider using --async if the clean takes more than several minutes.
+Configuration finished
+
+$ wget https://ci.tensorflow.org/view/Nightly/job/nightly-matrix-linux-gpu/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON2,label=gpu-linux/lastSuccessfulBuild/artifact/pip_test/whl/tensorflow_gpu-1.1.0-cp27-none-linux_x86_64.whl
+$ sudo pip install --upgrade tensorflow_gpu-1.1.0-cp27-none-linux_x86_64.whl
+```
+
+```
+python -c 'import tensorflow as tf; print(tf.__version__)'
+```
+
