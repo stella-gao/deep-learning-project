@@ -18,6 +18,12 @@ http://www.nvidia.com/object/gpu-accelerated-applications-tensorflow-installatio
 http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#abstract
 
 ```
+
+# create a new virtualenv using system packages:
+virtualenv --system-site-packages -p python2.7 venv2
+source venv2/bin/activate
+
+
 sudo apt update
 sudo apt upgrade
 sudo apt install -y python-dev python-pip python-nose gcc g++ git gfortran vim
@@ -41,6 +47,7 @@ lsmod | grep nvidia
 # If there is no output, then your installation has probably failed. It is also possible that the driver is not available in your system's driver database. You can run the following command to check if your system is running on the open source driver nouveau. If the output is negative for nouveau, then all is well with your installation.
 lsmod | grep nouveau 
 
+
 sudo nvidia-smi
 
 # Install Theano
@@ -49,12 +56,22 @@ sudo pip install Theano
 sudo pip install numpy scipy
 sudo pip install scikit-learn
 sudo pip install pillow
-sudo pip install h5py
 python -c "import keras; print keras.__version__"
 
+
+sudo apt-get install libhdf5-dev
+pip install h5py
+
+
+
+
+# Install common tools from the scipy stack
+sudo apt-get install -y libfreetype6-dev libpng12-dev
+pip install -U matplotlib ipython[all] pandas scikit-image
+
 # Install Nvidia drivers, CUDA and CUDA toolkit, following some instructions from http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
-wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda-repo-ubuntu1404-7-5-local_7.5-18_amd64.deb # Got the link at https://developer.nvidia.com/cuda-downloads
-sudo dpkg -i cuda-repo-ubuntu1404-7-5-local_7.5-18_amd64.deb
+# wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda-repo-ubuntu1404-7-5-local_7.5-18_amd64.deb # Got the link at https://developer.nvidia.com/cuda-downloads
+# sudo dpkg -i cuda-repo-ubuntu1404-7-5-local_7.5-18_amd64.deb
 sudo apt-get update
 sudo apt-get install cuda
 cat /usr/local/cuda/version.txt
