@@ -2,6 +2,8 @@ http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-install
 
 http://www.pyimagesearch.com/2016/07/18/installing-keras-for-deep-learning/
 
+http://www.pyimagesearch.com/2016/07/04/how-to-install-cuda-toolkit-and-cudnn-for-deep-learning/
+
 https://www.tensorflow.org/versions/r0.10/get_started/os_setup
 
 https://developer.nvidia.com/cuda-downloads
