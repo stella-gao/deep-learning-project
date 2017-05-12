@@ -215,4 +215,17 @@ $ sudo pip install --upgrade tensorflow_gpu-1.1.0-cp27-none-linux_x86_64.whl
 ```
 python -c 'import tensorflow as tf; print(tf.__version__)'
 ```
-
+vi ~/.bashrc
+```
+# added by Anaconda2 4.0.0 installer
+#export PATH="/home/terry/anaconda2/bin:$PATH"
+#export CAFFE_ROOT=/home/terry/pkgs/caffe
+#export PYTHONPATH=$CAFFE_ROOT/python:$PYTHONPATH
+export PATH="/home/terry/pkgs/bedtools2/bin:$PATH"
+export PATH="/home/terry/pkgs/samtools-1.3.1:$PATH"
+export PATH=/home/terry/pkgs/meme/bin:$PATH
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64"
+export CUDA_HOME=/usr/local/cuda
+export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$CUDA_HOME/lib"
+export PATH="$CUDA_HOME/bin:$PATH"
+```
