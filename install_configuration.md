@@ -24,31 +24,45 @@ virtualenv --system-site-packages -p python2.7 venv2
 source venv2/bin/activate
 
 
+# pre install
 sudo apt update
 sudo apt upgrade
 sudo apt install -y python-dev python-pip python-nose gcc g++ git gfortran vim
 sudo apt install -y libopenblas-dev liblapack-dev libatlas-base-dev
 sudo apt-get install -y build-essential git libblas-dev libopencv-dev
 
-git clone --recursive https://github.com/dmlc/mxnet
 
-wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb
-sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb
+# install cuda from https://developer.nvidia.com/cuda-downloads
+wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1404-8-0-local-ga2_8.0.61-1_amd64-deb
+sudo dpkg -i cuda-repo-ubuntu1404-8-0-local-ga2_8.0.61-1_amd64.deb
 sudo apt-get update
 sudo apt-get install cuda
 
+
+# Install NVIDIA drivers from NVIDIA
+# Download and install latest drivers
+wget http://us.download.nvidia.com/XFree86/Linux-x86_64/375.20/NVIDIA-Linux-x86_64-375.20.run
+chmod +x NVIDIA-Linux-x86_64-375.20.run
+sudo ./NVIDIA-Linux-x86_64-375.20.run
+
+# Install NVIDIA drivers from Ubuntu
+sudo apt install ubuntu-drivers-common
+# list the devices
+ubuntu-drivers devices
+# or install automatically
+sudo ubuntu-drivers autoinstall
+# or
 sudo apt-get purge nvidia*
 sudo add-apt-repository ppa:graphics-drivers
 sudo apt-get update
+sudo apt-get install nvidia-375
+
 
 uname -a
-sudo apt-get install nvidia-375
 lsmod | grep nvidia
 # If there is no output, then your installation has probably failed. It is also possible that the driver is not available in your system's driver database. You can run the following command to check if your system is running on the open source driver nouveau. If the output is negative for nouveau, then all is well with your installation.
 lsmod | grep nouveau 
 
-
-sudo nvidia-smi
 
 # Install Theano
 sudo apt-get install python-numpy python-scipy python-dev python-pip python-nose g++ libopenblas-dev git
@@ -234,6 +248,25 @@ export PATH="$CUDA_HOME/bin:$PATH"
 lspci | grep -i nvidia 
 uname -m && cat /etc/*release
 gcc --version
+
+
+# Check your boot partition 
+df -h
+# Get your current kernel 
 uname -r
+# List installed kernels 
+dpkg --list 'linux-image*'
+# Remove some of them
+sudo apt-get remove  linux-image-4.4.0-21-generic linux-image-4.4.0-45-generic linux-image-4.4.0-47-generic linux-image-4.4.0-51-generic
+# You can erase manually the kernels you do not need
+rm /boot/vmlinuz-4.4.0-42-generic
+# Remove also your NVIDIA drivers
+sudo apt-get purge nvidia*
+# Remove the packages that you don’t need anymore
+sudo apt-get autoremove
+# update
+sudo apt-get update && sudo apt-get -y upgrade
+
+
 sudo apt-get install linux-headers-$(uname -r)
 ```
