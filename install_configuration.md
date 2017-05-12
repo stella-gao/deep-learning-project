@@ -229,3 +229,11 @@ export CUDA_HOME=/usr/local/cuda
 export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$CUDA_HOME/lib"
 export PATH="$CUDA_HOME/bin:$PATH"
 ```
+
+```
+lspci | grep -i nvidia 
+uname -m && cat /etc/*release
+gcc --version
+uname -r
+sudo apt-get install linux-headers-$(uname -r)
+```
