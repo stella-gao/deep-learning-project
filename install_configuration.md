@@ -284,5 +284,7 @@ import matplotlib
 print('matplolib: {}'.format(matplotlib.__version__))
 import pandas
 print('pandas: {}'.format(pandas.__version__))
+import sklearn
+print('sklearn: {}'.format(sklearn.__version__))
 ```
 
