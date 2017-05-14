@@ -274,3 +274,15 @@ sudo apt-get update && sudo apt-get -y upgrade
 
 sudo apt-get install linux-headers-$(uname -r)
 ```
+print the versions of installed libraries
+```
+import scipy
+print('scipy: {}'.format(scipy.__version__))
+import numpy
+print('numpy: {}'.format(numpy.__version__))
+import matplotlib
+print('matplolib: {}'.format(matplotlib.__version__))
+import pandas
+print('pandas: {}'.format(pandas.__version__))
+```
+
