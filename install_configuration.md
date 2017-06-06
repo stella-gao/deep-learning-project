@@ -288,3 +288,6 @@ import sklearn
 print('sklearn: {}'.format(sklearn.__version__))
 ```
 
+### for mac
+1. http://www.pyimagesearch.com/2016/11/28/macos-install-opencv-3-and-python-2-7/
+2. https://stackoverflow.com/questions/20518632/importerror-numpy-core-multiarray-failed-to-import
