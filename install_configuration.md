@@ -287,6 +287,13 @@ print('pandas: {}'.format(pandas.__version__))
 import sklearn
 print('sklearn: {}'.format(sklearn.__version__))
 ```
+check the cuda version
+```
+nvcc --version
+# if the version is old, then try to use the commands
+export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}$ 
+export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+```
 
 ### for mac
 1. http://www.pyimagesearch.com/2016/11/28/macos-install-opencv-3-and-python-2-7/
