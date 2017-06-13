@@ -1,3 +1,20 @@
+```sh
+$ git clone git@github.com:user/project_name.git
+$ cd project_name
+$ git config user.name "yourname"
+$ git config user.email "your email"
+
+$ git commit -am "Fix issue #1: change helo to hello"
+$ git push
+
+
+$ git remote add upstream https://github.com/user/project_name
+$ git fetch upstream
+$ git checkout master
+$ git rebase upstream/master
+$ git push -f origin master
+```
+
 List all of the branches in your repository.
 ```sh
 git branch
