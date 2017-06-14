@@ -3,7 +3,7 @@ $ git clone git@github.com:user/project_name.git
 $ cd project_name
 $ git config user.name "yourname"
 $ git config user.email "your email"
-
+$ git pull origin <branch-name>
 
 $ git init
 Initialized empty Git repository in /home/demo/simple-repository/.git/
