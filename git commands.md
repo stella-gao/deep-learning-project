@@ -4,6 +4,35 @@ $ cd project_name
 $ git config user.name "yourname"
 $ git config user.email "your email"
 
+
+$ git init
+Initialized empty Git repository in /home/demo/simple-repository/.git/
+$ ls -l .git
+$ echo 'This is the readme.' > README
+$ git add README
+$ git commit -m "First commit"
+
+$ git show --format=raw flag   # flag is something like d409ca7 
+$ git status
+On branch master
+nothing to commit, working directory clean
+git status has told us that we are on branch master. As we will learn in a later section, branches
+are just references. We can see this by looking in .git/refs/heads.
+
+$ ls -l .git/refs/heads/
+total 4
+-rw-rw-r-- 1 demo demo 41 May 24 20:02 master
+We can easily see which commit master points to by reading the file.
+$ cat .git/refs/heads/master
+d409ca76bc919d9ca797f39ae724b7c65700fd27
+$ git show --oneline master
+d409ca7 First commit
+$ git rev-parse master
+d409ca76bc919d9ca797f39ae724b7c65700fd27
+$ cat .git/HEAD
+ref: refs/heads/master
+
+
 $ git commit -am "Fix issue #1: change helo to hello"
 $ git push
 
