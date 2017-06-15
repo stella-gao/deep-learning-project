@@ -1,0 +1,104 @@
+FROM ubuntu:16.04
+FROM python:2
+
+MAINTAINER Stella Gao <***@gmail.com>
+
+USER root
+ENV DEBIAN_FRONTEND noninteractive
+
+
+# get up pip, vim, etc.
+RUN apt-get -y update --fix-missing
+RUN apt-get update -yqq && \
+	apt-get install -yqq \
+	cmake \
+	wget \
+	git \
+	apt-utils \
+	python-pip \
+	python-dev \
+	libev4 \
+	libev-dev \
+	gcc \
+	libxslt-dev \
+	libxml2-dev \
+	libffi-dev \
+	vim \
+	curl \
+	python-tk \
+	build-essential \
+	bzip2 \
+	pkg-config \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN pip install \
+	pandas \
+	scikit-learn \
+	numpy \
+	scipy \
+	matplotlib \
+	pillow
+
+
+
+# configure environment
+ENV LC_ALL=C.UTF-8 
+ENV LANG=C.UTF-8
+
+
+
+# folder to install non-system tools and serve as workspace for the notebook user
+# RUN mkdir libsvm-cpp
+# WORKDIR ./libsvm-cpp
+RUN mkdir -p -m 777 /opt \
+	&& mkdir -p -m 777 /opt/libsvm-cpp \
+	&& chmod 777 /opt \
+	&& chmod 777 /opt/libsvm-cpp 
+
+
+
+# Install the requirements before copying project files
+COPY ./requirements.txt /opt/libsvm-cpp
+ADD ./data-process/ /opt/libsvm-cpp
+WORKDIR /opt/libsvm-cpp
+RUN pip install --no-cache-dir -r requirements.txt && rm -rf ~/.cache/pip/
+
+
+
+RUN git clone https://github.com/cjlin1/libsvm.git
+WORKDIR /opt/libsvm-cpp/libsvm
+RUN make
+
+
+
+
+WORKDIR /opt/libsvm-cpp/
+
+RUN echo "data processing"
+RUN chmod 777 csv_dp.sh
+RUN ./csv_dp.sh
+RUN chmod 777 csv_dp_350.sh
+RUN ./csv_dp_350.sh
+CMD [ "python", "./dict.py" ]
+CMD [ "python", "./label.py" ]
+CMD [ "python", "./label_test_overlap50.py" ]
+
+RUN cp /opt/libsvm-cpp/libsvm_100.txt /opt/libsvm-cpp/libsvm/libsvm_100.txt
+RUN cp /opt/libsvm-cpp/libsvm_350_overlap50.txt /opt/libsvm-cpp/libsvm/libsvm_350_overlap50.txt
+
+
+WORKDIR /opt/libsvm-cpp/libsvm
+RUN echo "fit score"
+RUN ./svm-scale -l -1 -u 1 -s range libsvm_100.txt > scale_100.txt
+RUN ./svm-train -s 0 -t 0 scale_100.txt 
+RUN ./svm-predict scale_100.txt scale_100.txt.model scale_100.out
+
+
+RUN echo "inference score"
+RUN ./svm-scale -l -1 -u 1 -s range libsvm_350_overlap50.txt > scale_350_overlap50.txt
+RUN ./svm-predict scale_350_overlap50.txt scale_100.txt.model scale_350_overlap50.out
+
+ENV DEBIAN_FRONTEND teletype
+
+# expose the port for it
+EXPOSE 5000
