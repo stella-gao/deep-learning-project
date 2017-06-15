@@ -1,5 +1,9 @@
 1. Git工作流指南：Gitflow工作流 http://blog.jobbole.com/76867/
 2. Changing history, or How to Git pretty http://justinhileman.info/article/changing-history/  http://justinhileman.info/article/git-pretty/ 
+3. https://www.atlassian.com/git/tutorials/git-merge
+4. https://www.atlassian.com/git/tutorials/undoing-changes
+5. https://www.atlassian.com/git/tutorials/saving-changes
+6. https://wildlyinaccurate.com/a-hackers-guide-to-git/
 
 ```sh
 $ git clone git@github.com:user/project_name.git
@@ -45,9 +49,58 @@ $ git fetch upstream
 $ git checkout master
 $ git rebase upstream/master
 $ git push -f origin master
+
+
+
+$ git branch test-branch
+$ cat .git/refs/heads/test-branch
+d409ca76bc919d9ca797f39ae724b7c65700fd27
+
+
+$ cat .git/HEAD
+ref: refs/heads/master
+$ git checkout test-branch
+Switched to branch 'test-branch'
+$ cat .git/HEAD
+ref: refs/heads/test-branch
+
+
+$ echo 'Some more information here.' >> README
+$ git add README
+$ git commit -m "Update README in a new branch"
+[test-branch 7604067] Update README in a new branch
+1 file changed, 1 insertion(+)
+$ cat .git/refs/heads/test-branch
+76040677d717fd090e327681064ac6af9f0083fb
+
+
+$ git tag 1.0-lightweight
+$ cat .git/refs/tags/1.0-lightweight
+d409ca76bc919d9ca797f39ae724b7c65700fd27
+
+We can verify this by using git cat-file to inspect the tag.
+$ git cat-file -p 1.0-lightweight
+
+First commit
+$ git cat-file -p d409ca7
+
+
+$ git tag -a -m "Tagged 1.0" 1.0
+$ cat .git/refs/tags/1.0
+
+$ git cat-file -p 1.0
+Tagged 1.0
+
+tag objects also store a tag message and information about the tagger.
+
+$ git checkout master
+$ git merge hotfix
+
+
+
 ```
 
-on a branch
+
 ```
 $ git checkout -b <new-branch>
 $ git add --all
@@ -62,6 +115,9 @@ git merge some-feature
 git push
 git branch -d some-feature
 ```
+
+
+
 
 List all of the branches in your repository.
 ```sh
