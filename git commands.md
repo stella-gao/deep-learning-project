@@ -1,3 +1,6 @@
+1. Git工作流指南：Gitflow工作流 http://blog.jobbole.com/76867/
+2. Changing history, or How to Git pretty http://justinhileman.info/article/changing-history/  http://justinhileman.info/article/git-pretty/ 
+
 ```sh
 $ git clone git@github.com:user/project_name.git
 $ cd project_name
@@ -42,6 +45,22 @@ $ git fetch upstream
 $ git checkout master
 $ git rebase upstream/master
 $ git push -f origin master
+```
+
+on a branch
+```
+$ git checkout -b <new-branch>
+$ git add --all
+$ git commit -m "start a merge"
+$ git push -u origin <branch-name>
+```
+
+```
+git pull origin develop
+git checkout develop
+git merge some-feature
+git push
+git branch -d some-feature
 ```
 
 List all of the branches in your repository.
