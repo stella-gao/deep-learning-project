@@ -18,7 +18,7 @@ ll include/
 make clean
 make
 echo $LD_LIBRARY_PATH
-export LB_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib && CUDA_VISIBLE_DEVICES=0
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib && CUDA_VISIBLE_DEVICES=0
 echo $LD_LIBRARY_PATH
 ./app data/grace_hopper.jpg
 
