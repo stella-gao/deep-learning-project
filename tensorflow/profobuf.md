@@ -1,7 +1,8 @@
-Building Protobuf
+##Building Protobuf
 
-Below versions of Protobuf are available in respective distributions at the time of creation of these build instructions:
+###Below versions of Protobuf are available in respective distributions at the time of creation of these build instructions:
 
+```
 Ubuntu 16.04 has 2.6.1
 Ubuntu 16.10 has 3.0.0
 The instructions provided below specify the steps to build Google Protobuf v3.3.0 on IBM z Systems for
@@ -52,3 +53,4 @@ References:
 
 https://developers.google.com/protocol-buffers/
 https://github.com/google/protobuf/
+```
