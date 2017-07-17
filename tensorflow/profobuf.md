@@ -1,6 +1,6 @@
-## Building Protobuf
+### Building Protobuf
 
-### Below versions of Protobuf are available in respective distributions at the time of creation of these build instructions:
+Below versions of Protobuf are available in respective distributions at the time of creation of these build instructions:
 
 ```
 Ubuntu 16.04 has 2.6.1
