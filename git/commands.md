@@ -5,6 +5,14 @@
 5. https://www.atlassian.com/git/tutorials/saving-changes
 6. https://wildlyinaccurate.com/a-hackers-guide-to-git/
 
+
+### get all files from master
+```shell
+git fetch origin master
+git reset --hard FETCH_HEAD
+```
+
+
 ```sh
 $ git clone git@github.com:user/project_name.git
 $ cd project_name
