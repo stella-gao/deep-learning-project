@@ -12,20 +12,9 @@ https://developer.nvidia.com/rdp/cudnn-download
 
 http://www.nvidia.com/object/gpu-accelerated-applications-tensorflow-installation.html
 
-
-
-
-
-
 http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#abstract
 
 ```
-
-# create a new virtualenv using system packages:
-virtualenv --system-site-packages -p python2.7 venv2
-source venv2/bin/activate
-
-
 # pre install
 sudo apt update
 sudo apt upgrade
