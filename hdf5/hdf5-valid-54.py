@@ -8,7 +8,7 @@ from keras.optimizers import RMSprop, SGD
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.layers.convolutional import Convolution1D, MaxPooling1D
-from keras.regularizers import l2, activity_l1
+#from keras.regularizers import l2, activity_l1
 from keras.constraints import maxnorm
 from keras.layers.recurrent import LSTM, GRU
 from keras.callbacks import ModelCheckpoint, EarlyStopping
@@ -25,8 +25,8 @@ file_name_false = 'neg-valid'
 
 
 
-seq_T_len = longest_seq_len(file_name_true+'.fa')
-seq_F_len = longest_seq_len(file_name_false+'.fa')
+#seq_T_len = longest_seq_len(file_name_true+'.fa')
+#seq_F_len = longest_seq_len(file_name_false+'.fa')
 
 
 #max_len = max(seq_T_len, seq_F_len)
@@ -64,7 +64,7 @@ train_scores = np.array(train_scores)
 # print train_seqs.shape
 
 import h5py
-h5f = h5py.File('valid-54.hdf5', 'w')
+h5f = h5py.File('valid.hdf5', 'w')
 h5f.create_dataset('x_valid', data=train_seqs)
 h5f.create_dataset('y_valid', data=train_scores)
 h5f.close()
