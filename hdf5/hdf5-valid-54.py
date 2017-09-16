@@ -16,7 +16,7 @@ from keras.utils import np_utils
 
 from keras.layers.embeddings import Embedding
 
-from dna_io_4mer import *
+from dna_io_1mer import *
 
 
 #file_name = 'human'
